@@ -12,7 +12,10 @@ const timeout = function (s) {
 };
 
 ///////////////////////////////////////
-const showRecipe = async id => {
+const showRecipe = async () => {
+  const { hash } = window.location,
+    id = hash.slice(1);
+  if (!id) return;
   try {
     loadingSpinner(recipeContainer);
     const recipe = await getRecipe(id);
@@ -25,4 +28,6 @@ const showRecipe = async id => {
   }
 };
 
-showRecipe('5ed6604591c37cdc054bcd09');
+['hashchange', 'load'].forEach(event =>
+  window.addEventListener(event, showRecipe)
+);

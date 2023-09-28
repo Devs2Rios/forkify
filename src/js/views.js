@@ -25,7 +25,6 @@ export const recipesError = `
 
 export const recipeDetail = recipe => {
   const {
-    id,
     title,
     servings,
     cooking_time,
@@ -42,7 +41,7 @@ export const recipeDetail = recipe => {
       </h1>
     </figure>
 
-    <div id="${id}" class="recipe__details">
+    <div class="recipe__details">
       <div class="recipe__info">
         <svg class="recipe__info-icon">
           <use href="${icons}#icon-clock"></use>
