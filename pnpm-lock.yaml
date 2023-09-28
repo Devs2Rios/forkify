@@ -4,6 +4,7 @@ specifiers:
   '@parcel/core': '>=2.9.3 <3.0.0'
   '@parcel/transformer-sass': ^2.9.3
   buffer: ^5.5.0||^6.0.0
+  core-js: ^3.32.2
   crypto-browserify: ^3.12.0
   dotenv: ^16.3.1
   events: ^3.1.0
@@ -11,12 +12,15 @@ specifiers:
   parcel: ^2.9.3
   path-browserify: ^1.0.0
   process: ^0.11.10
+  regenerator-runtime: ^0.14.0
   sass: ^1.68.0
   stream-browserify: ^3.0.0
   string_decoder: ^1.3.0
 
 dependencies:
+  core-js: 3.32.2
   dotenv: 16.3.1
+  regenerator-runtime: 0.14.0
 
 devDependencies:
   '@parcel/core': 2.9.3
@@ -1357,6 +1361,11 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
+  /core-js/3.32.2:
+    resolution: {integrity: sha512-pxXSw1mYZPDGvTQqEc5vgIb83jGQKFGYWY76z4a7weZXUolw3G+OvpZqSRcfYOoOVUQJYEPsWeQK8pKEnUtWxQ==}
+    requiresBuild: true
+    dev: false
+
   /cosmiconfig/8.3.6:
     resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
     engines: {node: '>=14'}
@@ -2166,6 +2175,10 @@ packages:
   /regenerator-runtime/0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
     dev: true
+
+  /regenerator-runtime/0.14.0:
+    resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
+    dev: false
 
   /resolve-from/4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
