@@ -1,5 +1,5 @@
 import { getRecipe } from './services';
-import { loadingSpinner, recipeDetail } from './views';
+import { loadingSpinner, recipeDetail, recipesError } from './views';
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -19,12 +19,11 @@ const showRecipe = async () => {
   try {
     loadingSpinner(recipeContainer);
     const recipe = await getRecipe(id);
-    if (!recipe)
-      throw new Error("We couldn't find that recipe. Please try again!");
     recipeContainer.innerHTML = '';
     recipeContainer.insertAdjacentHTML('afterbegin', recipeDetail(recipe));
   } catch (err) {
-    console.error(err);
+    recipeContainer.innerHTML = '';
+    recipeContainer.insertAdjacentHTML('afterbegin', recipesError(err.message));
   }
 };
 

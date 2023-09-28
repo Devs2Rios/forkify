@@ -12,14 +12,16 @@ export const loadingSpinner = parent => {
   parent.insertAdjacentHTML('afterbegin', spinner);
 };
 
-export const recipesError = `
+export const recipesError = (
+  errorMessage = 'No recipes found for your query. Please try again!'
+) => `
   <div class="error">
     <div>
       <svg>
         <use href="${icons}#icon-alert-triangle"></use>
       </svg>
     </div>
-    <p>No recipes found for your query. Please try again!</p>
+    <p>${errorMessage}</p>
   </div>
 `;
 

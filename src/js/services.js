@@ -2,11 +2,13 @@ import endpoints from './endpoints';
 import { fetchData } from './utils';
 
 export const getRecipe = async id => {
-  const { recipe } = await fetchData(`${endpoints.recipes}/${id}`);
-  return recipe;
+  const res = await fetchData(`${endpoints.recipes}/${id}`);
+  if (!res.recipe) throw new Error('Recipe not found');
+  return res.recipe;
 };
 
 export const searchRecipes = async keyword => {
-  const { recipes } = await fetchData(`${endpoints.recipes}?search=${keyword}`);
-  return recipes;
+  const res = await fetchData(`${endpoints.recipes}?search=${keyword}`);
+  if (!res.recipes) throw new Error('Recipes not found');
+  return res.recipes;
 };
