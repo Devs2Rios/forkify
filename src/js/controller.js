@@ -1,3 +1,5 @@
+import { getRecipeByKeyword } from './services';
+
 const recipeContainer = document.querySelector('.recipe');
 
 const timeout = function (s) {
@@ -8,6 +10,5 @@ const timeout = function (s) {
   });
 };
 
-// https://forkify-api.herokuapp.com/v2
-
 ///////////////////////////////////////
+console.log(getRecipeByKeyword('pizza').then(data => console.log(data)));
