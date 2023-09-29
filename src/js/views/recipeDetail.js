@@ -1,5 +1,6 @@
 import icons from 'url:../../img/icons.svg';
 import { View } from '../model';
+import { Fraction } from 'fractional';
 
 export const recipeDetail = new View();
 recipeDetail.setMarkupCallback(recipe => {
@@ -72,7 +73,13 @@ recipeDetail.setMarkupCallback(recipe => {
               <svg class="recipe__icon">
                 <use href="${icons}#icon-check"></use>
               </svg>
-              <div class="recipe__quantity">${quantity}</div>
+              ${
+                quantity
+                  ? `<div class="recipe__quantity">
+                    ${new Fraction(quantity).toString()}
+                  </div>`
+                  : ''
+              }
               <div class="recipe__description">
                 <span class="recipe__unit">${unit}</span>
                 ${description}

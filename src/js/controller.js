@@ -7,7 +7,7 @@ const recipeContainer = document.querySelector('.recipe');
   view.setParentElement(recipeContainer)
 );
 
-const controlRecipes = async () => {
+const controlRecipe = async () => {
   const { hash } = window.location,
     id = hash.slice(1);
   if (!id) return;
@@ -21,5 +21,5 @@ const controlRecipes = async () => {
 };
 
 ['hashchange', 'load'].forEach(event =>
-  window.addEventListener(event, controlRecipes)
+  window.addEventListener(event, controlRecipe)
 );
