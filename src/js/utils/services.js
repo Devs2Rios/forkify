@@ -1,5 +1,5 @@
-import endpoints from './endpoints';
-import { fetchData } from './utils';
+import { endpoints } from './endpoints';
+import { fetchData } from './fetchData';
 
 export const getRecipe = async id => {
   const res = await fetchData(`${endpoints.recipes}/${id}`);

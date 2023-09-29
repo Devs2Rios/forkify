@@ -1,31 +1,8 @@
-import icons from 'url:../img/icons.svg'; // Needed to use icons from the bundle
+import icons from 'url:../../img/icons.svg';
+import { View } from '../model';
 
-export const loadingSpinner = parent => {
-  const spinner = `
-    <div class="spinner">
-      <svg>
-        <use href="${icons}#icon-loader"></use>
-      </svg>
-    </div> 
-`;
-  parent.innerHTML = '';
-  parent.insertAdjacentHTML('afterbegin', spinner);
-};
-
-export const recipesError = (
-  errorMessage = 'No recipes found for your query. Please try again!'
-) => `
-  <div class="error">
-    <div>
-      <svg>
-        <use href="${icons}#icon-alert-triangle"></use>
-      </svg>
-    </div>
-    <p>${errorMessage}</p>
-  </div>
-`;
-
-export const recipeDetail = recipe => {
+export const recipeDetail = new View();
+recipeDetail.setMarkupCallback(recipe => {
   const {
     title,
     servings,
@@ -126,4 +103,4 @@ export const recipeDetail = recipe => {
       </a>
     </div>
   `;
-};
+});

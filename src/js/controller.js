@@ -1,32 +1,25 @@
-import { getRecipe } from './services';
+import { state, loadRecipe } from './model';
 import { loadingSpinner, recipeDetail, recipesError } from './views';
 
 const recipeContainer = document.querySelector('.recipe');
 
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
-    }, s * 1000);
-  });
-};
+[loadingSpinner, recipeDetail, recipesError].forEach(view =>
+  view.setParentElement(recipeContainer)
+);
 
-///////////////////////////////////////
-const showRecipe = async () => {
+const controlRecipes = async () => {
   const { hash } = window.location,
     id = hash.slice(1);
   if (!id) return;
   try {
-    loadingSpinner(recipeContainer);
-    const recipe = await getRecipe(id);
-    recipeContainer.innerHTML = '';
-    recipeContainer.insertAdjacentHTML('afterbegin', recipeDetail(recipe));
+    loadingSpinner.render();
+    await loadRecipe(id);
+    recipeDetail.render(state.recipe);
   } catch (err) {
-    recipeContainer.innerHTML = '';
-    recipeContainer.insertAdjacentHTML('afterbegin', recipesError(err.message));
+    recipesError.render(err);
   }
 };
 
 ['hashchange', 'load'].forEach(event =>
-  window.addEventListener(event, showRecipe)
+  window.addEventListener(event, controlRecipes)
 );
