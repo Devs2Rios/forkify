@@ -8,7 +8,6 @@ specifiers:
   crypto-browserify: ^3.12.0
   dotenv: ^16.3.1
   events: ^3.1.0
-  fractional: ^1.0.0
   os-browserify: ^0.3.0
   parcel: ^2.9.3
   path-browserify: ^1.0.0
@@ -21,7 +20,6 @@ specifiers:
 dependencies:
   core-js: 3.32.2
   dotenv: 16.3.1
-  fractional: 1.0.0
   regenerator-runtime: 0.14.0
 
 devDependencies:
@@ -1578,10 +1576,6 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
     dev: true
-
-  /fractional/1.0.0:
-    resolution: {integrity: sha512-4huGcVdAAr0ffcQ7wQY3dhAdZqKd6QgGOP4Kd7ioNoBAS7GdzolwnqgjH/jTzzCpg71oTLbOVwcOWOH+BmwqvA==}
-    dev: false
 
   /fsevents/2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}

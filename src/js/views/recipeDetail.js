@@ -1,6 +1,6 @@
 import icons from 'url:../../img/icons.svg';
 import { View } from '../model';
-import { Fraction } from 'fractional';
+import { fraction } from '../utils';
 
 export const recipeDetail = new View();
 recipeDetail.setMarkupCallback(recipe => {
@@ -76,7 +76,7 @@ recipeDetail.setMarkupCallback(recipe => {
               ${
                 quantity
                   ? `<div class="recipe__quantity">
-                    ${new Fraction(quantity).toString()}
+                    ${fraction(quantity)}
                   </div>`
                   : ''
               }
