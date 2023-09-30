@@ -1,5 +1,10 @@
-import { state, loadRecipe } from './model';
-import { loadingSpinner, recipeDetail, recipesMessage } from './view';
+import { state, loadRecipe, loadSearchRecipes } from './model';
+import {
+  loadingSpinner,
+  recipeDetail,
+  recipesMessage,
+  searchResults,
+} from './view';
 
 const controlRecipe = async () => {
   const { hash } = window.location,
@@ -8,8 +13,23 @@ const controlRecipe = async () => {
   try {
     loadingSpinner.render();
     await loadRecipe(id);
-    recipeDetail.isError = false;
+    recipesMessage.isError = false;
     recipeDetail.render(state.recipe);
+  } catch (err) {
+    recipesMessage.isError = true;
+    recipesMessage.render(err);
+  }
+};
+
+const controlSearchRecipes = async query => {
+  try {
+    loadingSpinner.render();
+    await loadSearchRecipes(query);
+    if (!state.recipes || !state.recipes.length)
+      throw new Error('No recipes found. Please try again!');
+    recipesMessage.isError = false;
+    searchResults.render({ recipes: state.recipes });
+    window.location.hash = '#' + state.recipes[0].id;
   } catch (err) {
     recipesMessage.isError = true;
     recipesMessage.render(err);
@@ -21,6 +41,11 @@ const init = () => {
     message: 'Start by searching for a recipe or an ingredient. Have fun!',
   });
   // Publisher-subscriber pattern implemented
+  searchResults.actionHandler('submit', async function (e) {
+    e.preventDefault();
+    const query = searchResults.getQuery(e.target);
+    await controlSearchRecipes(query);
+  });
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
 };
 
