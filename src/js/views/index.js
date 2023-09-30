@@ -1,3 +1,3 @@
-export * from './recipesError';
+export * from './recipesMessage';
 export * from './recipeDetail';
 export * from './loadingSpinner';

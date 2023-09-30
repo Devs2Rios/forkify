@@ -2,6 +2,7 @@ export class View {
   #markupCallback = () => {};
   #parentElement = null;
   #data = null;
+  isError = false;
 
   render(data) {
     this.#data = data;

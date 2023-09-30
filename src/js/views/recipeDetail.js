@@ -1,7 +1,9 @@
 import { View } from '../model';
 import { fraction, icons } from '../utils';
+import { recipeContainer } from './domElements';
 
 export const recipeDetail = new View();
+recipeDetail.setParentElement(recipeContainer);
 recipeDetail.setMarkupCallback(recipe => {
   const {
     title,

@@ -1,11 +1,9 @@
 import { state, loadRecipe } from './model';
-import { loadingSpinner, recipeDetail, recipesError } from './views';
+import { loadingSpinner, recipeDetail, recipesMessage } from './views';
 
-const recipeContainer = document.querySelector('.recipe');
-
-[loadingSpinner, recipeDetail, recipesError].forEach(view =>
-  view.setParentElement(recipeContainer)
-);
+recipesMessage.render({
+  message: 'Start by searching for a recipe or an ingredient. Have fun!',
+});
 
 const controlRecipe = async () => {
   const { hash } = window.location,
@@ -14,9 +12,11 @@ const controlRecipe = async () => {
   try {
     loadingSpinner.render();
     await loadRecipe(id);
+    recipeDetail.isError = false;
     recipeDetail.render(state.recipe);
   } catch (err) {
-    recipesError.render(err);
+    recipesMessage.isError = true;
+    recipesMessage.render(err);
   }
 };
 
