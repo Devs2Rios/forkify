@@ -18,6 +18,10 @@ export class View {
     this.#markupCallback = markupCallback;
   }
 
+  renderHandler(events, callback) {
+    events.forEach(event => window.addEventListener(event, callback));
+  }
+
   #generateMarkup() {
     return this.#markupCallback(this.#data);
   }

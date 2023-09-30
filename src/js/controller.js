@@ -20,6 +20,9 @@ const controlRecipe = async () => {
   }
 };
 
-['hashchange', 'load'].forEach(event =>
-  window.addEventListener(event, controlRecipe)
-);
+const init = () => {
+  // Publisher-subscriber pattern implemented
+  recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
+};
+
+init();
