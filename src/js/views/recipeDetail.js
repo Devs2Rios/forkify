@@ -1,6 +1,5 @@
-import icons from 'url:../../img/icons.svg';
 import { View } from '../model';
-import { fraction } from '../utils';
+import { fraction, icons } from '../utils';
 
 export const recipeDetail = new View();
 recipeDetail.setMarkupCallback(recipe => {

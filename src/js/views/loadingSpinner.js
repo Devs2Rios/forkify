@@ -1,4 +1,4 @@
-import icons from 'url:../../img/icons.svg';
+import { icons } from '../utils';
 import { View } from '../model';
 
 export const loadingSpinner = new View();
