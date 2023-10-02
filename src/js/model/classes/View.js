@@ -3,11 +3,12 @@ import { icons } from '../../utils';
 export class View {
   #markupCallback = () => {};
   #parentElement = null;
-  #actionElement = null;
   #data = null;
+  actionHandlers = {};
   isError = false;
 
   render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0)) return;
     this.#data = data;
     this.#clear();
     const markup = this.#generateMarkup();
@@ -18,24 +19,12 @@ export class View {
     this.#parentElement = parentElement;
   }
 
-  setActionElement(actionElement) {
-    this.#actionElement = actionElement;
-  }
-
   setMarkupCallback(markupCallback) {
     this.#markupCallback = markupCallback;
   }
 
   renderHandler(events, callback) {
     events.forEach(event => window.addEventListener(event, callback));
-  }
-
-  actionHandler(event, callback) {
-    this.#actionElement.addEventListener(event, callback);
-  }
-
-  getQuery(element) {
-    return element.querySelector('.search__field').value;
   }
 
   loadSpinner() {
@@ -48,6 +37,22 @@ export class View {
     `;
     this.#clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  renderMessage() {
+    const className = this.isError ? 'error' : 'message';
+    const icon = this.isError ? 'icon-alert-triangle' : 'icon-smile';
+    this.#clear();
+    return `
+      <div class="${className}">
+        <div>
+          <svg>
+            <use href="${icons}#${icon}"></use>
+          </svg>
+        </div>
+        <p>${this.message}</p>
+      </div>
+    `;
   }
 
   #generateMarkup() {
