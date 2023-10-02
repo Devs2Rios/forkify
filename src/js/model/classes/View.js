@@ -1,3 +1,5 @@
+import { icons } from '../../utils';
+
 export class View {
   #markupCallback = () => {};
   #parentElement = null;
@@ -34,6 +36,18 @@ export class View {
 
   getQuery(element) {
     return element.querySelector('.search__field').value;
+  }
+
+  loadSpinner() {
+    const markup = `
+      <div class="spinner">
+        <svg>
+          <use href="${icons}#icon-loader"></use>
+        </svg>
+      </div>
+    `;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   #generateMarkup() {

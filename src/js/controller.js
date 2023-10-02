@@ -1,17 +1,12 @@
 import { state, loadRecipe, loadSearchRecipes } from './model';
-import {
-  loadingSpinner,
-  recipeDetail,
-  recipesMessage,
-  searchResults,
-} from './view';
+import { recipeDetail, recipesMessage, searchResults } from './view';
 
 const controlRecipe = async () => {
   const { hash } = window.location,
     id = hash.slice(1);
   if (!id) return;
   try {
-    loadingSpinner.render();
+    recipeDetail.loadSpinner();
     await loadRecipe(id);
     recipesMessage.isError = false;
     recipeDetail.render(state.recipe);
@@ -23,7 +18,7 @@ const controlRecipe = async () => {
 
 const controlSearchRecipes = async query => {
   try {
-    loadingSpinner.render();
+    searchResults.loadSpinner();
     await loadSearchRecipes(query);
     if (!state.recipes || !state.recipes.length)
       throw new Error('No recipes found. Please try again!');
