@@ -12,11 +12,9 @@ const controlRecipe = async () => {
   try {
     recipeDetail.loadSpinner();
     await loadRecipe(id);
-    recipeDetail.isError = false;
     recipeDetail.render(state.recipe);
   } catch (err) {
-    recipeDetail.isError = true;
-    recipeDetail.renderMessage(err.message);
+    recipeDetail.renderMessage(err.message, true);
   }
 };
 
@@ -26,12 +24,10 @@ const controlSearchRecipes = async query => {
     await loadSearchRecipes(query);
     if (!state.recipes || !state.recipes.length)
       throw new Error('No recipes found. Please try again!');
-    searchResults.isError = false;
     searchResults.render({ recipes: state.recipes });
     window.location.hash = '#' + state.recipes[0].id;
   } catch (err) {
-    searchResults.isError = true;
-    searchResults.renderMessage(err.message);
+    searchResults.renderMessage(err.message, true);
   }
 };
 

@@ -5,7 +5,6 @@ export class View {
   #parentElement = null;
   #data = null;
   actionHandlers = {};
-  isError = false;
 
   render(data) {
     if (!data || (Array.isArray(data) && data.length === 0)) return;
@@ -39,9 +38,9 @@ export class View {
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  renderMessage() {
-    const className = this.isError ? 'error' : 'message';
-    const icon = this.isError ? 'icon-alert-triangle' : 'icon-smile';
+  renderMessage(message, isError = false) {
+    const className = isError ? 'error' : 'message';
+    const icon = isError ? 'icon-alert-triangle' : 'icon-smile';
     this.#clear();
     return `
       <div class="${className}">
@@ -50,7 +49,7 @@ export class View {
             <use href="${icons}#${icon}"></use>
           </svg>
         </div>
-        <p>${this.message}</p>
+        <p>${message}</p>
       </div>
     `;
   }
