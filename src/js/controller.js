@@ -40,7 +40,7 @@ const init = () => {
     'Start by searching for a recipe or an ingredient. Have fun!'
   );
   // Publisher-subscriber pattern implemented
-  const query = searchResults.actionHandlers.getQuery(controlSearchRecipes);
+  searchResults.actionHandlers.getQuery(controlSearchRecipes);
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
 };
 
