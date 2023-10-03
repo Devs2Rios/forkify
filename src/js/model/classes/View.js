@@ -41,8 +41,7 @@ export class View {
   renderMessage(message, isError = false) {
     const className = isError ? 'error' : 'message';
     const icon = isError ? 'icon-alert-triangle' : 'icon-smile';
-    this.#clear();
-    return `
+    const markup = `
       <div class="${className}">
         <div>
           <svg>
@@ -52,6 +51,8 @@ export class View {
         <p>${message}</p>
       </div>
     `;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   #generateMarkup() {

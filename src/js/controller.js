@@ -37,6 +37,7 @@ const init = () => {
   );
   // Publisher-subscriber pattern implemented
   searchResults.actionHandlers.getQuery(controlSearchRecipes);
+  searchResults.actionHandlers.setActiveRecipe();
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
 };
 
