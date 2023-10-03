@@ -10,3 +10,10 @@ export const loadSearchRecipes = async query => {
   const recipes = await searchRecipes(query);
   state.recipes = recipes;
 };
+
+export const getSearchRecipesPage = (page = state.page) => {
+  state.page = page;
+  const { recipesPerPage: rpp } = state;
+  const [start, end] = [(page - 1) * rpp, page * rpp];
+  return { page, recipes: state.recipes.slice(start, end) };
+};

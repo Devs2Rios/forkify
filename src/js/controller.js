@@ -1,4 +1,9 @@
-import { state, loadRecipe, loadSearchRecipes } from './model';
+import {
+  state,
+  loadRecipe,
+  loadSearchRecipes,
+  getSearchRecipesPage,
+} from './model';
 import { recipeDetail, searchResults } from './view';
 
 if (module.hot) {
@@ -24,8 +29,7 @@ const controlSearchRecipes = async query => {
     await loadSearchRecipes(query);
     if (!state.recipes || !state.recipes.length)
       throw new Error('No recipes found. Please try again!');
-    searchResults.render({ recipes: state.recipes });
-    window.location.hash = '#' + state.recipes[0].id;
+    searchResults.render(getSearchRecipesPage());
   } catch (err) {
     searchResults.renderMessage(err.message, true);
   }
