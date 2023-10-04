@@ -8,6 +8,8 @@ export const loadRecipe = async id => {
 
 export const loadSearchRecipes = async query => {
   const recipes = await searchRecipes(query);
+  state.page = 1;
+  state.totalPages = Math.ceil(state.recipes.length / state.recipesPerPage);
   state.recipes = recipes;
 };
 

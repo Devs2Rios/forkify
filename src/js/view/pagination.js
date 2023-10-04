@@ -9,6 +9,7 @@ pagination.actionHandlers = {
     paginationContainer.addEventListener('click', function (e) {
       e.preventDefault();
       const btn = e.target.closest('.btn--inline');
+      if (!btn) return;
       callback(+btn.dataset.goTo);
     });
   },
@@ -38,8 +39,10 @@ pagination.setMarkupCallback(data => {
     </button>
   `;
 
-  return `
+  return state.recipes.length > 0
+    ? `
     ${currentPage > 1 ? prevBtn : ''}
     ${currentPage < totalPages ? nextButton : ''}
-  `;
+  `
+    : '';
 });
