@@ -4,7 +4,7 @@ import {
   loadSearchRecipes,
   getSearchRecipesPage,
 } from './model';
-import { recipeDetail, searchResults } from './view';
+import { recipeDetail, searchResults, pagination } from './view';
 
 if (module.hot) {
   module.hot.accept();
@@ -30,9 +30,22 @@ const controlSearchRecipes = async query => {
     if (!state.recipes || !state.recipes.length)
       throw new Error('No recipes found. Please try again!');
     searchResults.render(getSearchRecipesPage());
+    pagination.render({
+      currentPage: state.page,
+      totalPages: state.totalPages,
+    });
   } catch (err) {
     searchResults.renderMessage(err.message, true);
   }
+};
+
+const controlPagination = goToPage => {
+  searchResults.render(getSearchRecipesPage(goToPage));
+  state.page = goToPage;
+  pagination.render({
+    currentPage: state.page,
+    totalPages: state.totalPages,
+  });
 };
 
 const init = () => {
@@ -42,6 +55,7 @@ const init = () => {
   // Publisher-subscriber pattern implemented
   searchResults.actionHandlers.getQuery(controlSearchRecipes);
   searchResults.actionHandlers.setActiveRecipe();
+  pagination.actionHandlers.handlePagination(controlPagination);
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
 };
 

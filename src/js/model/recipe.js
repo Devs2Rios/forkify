@@ -13,6 +13,7 @@ export const loadSearchRecipes = async query => {
 
 export const getSearchRecipesPage = (page = state.page) => {
   state.page = page;
+  state.totalPages = Math.ceil(state.recipes.length / state.recipesPerPage);
   const { recipesPerPage: rpp } = state;
   const [start, end] = [(page - 1) * rpp, page * rpp];
   return { page, recipes: state.recipes.slice(start, end) };
