@@ -12,38 +12,24 @@ searchResults.actionHandlers = {
       await callback(query);
     });
   },
-  setActiveRecipe() {
-    const clearActiveRecipe = () =>
-      document.querySelectorAll('preview').forEach(link => {
-        link.closest('preview__link').classList.remove('preview__link--active');
-      });
-    ['hashchange', 'load'].forEach(event => {
-      window.addEventListener(event, function () {
-        const { hash } = window.location;
-        const id = hash.slice(1);
-        if (!id) return;
-        const activeRecipe = document.getElementById(`preview-link-${id}`);
-        if (!activeRecipe) return;
-        clearActiveRecipe();
-        activeRecipe.classList.add('preview__link--active');
-      });
-    });
-    document.querySelectorAll('preview__link').forEach(link => {
-      link.addEventListener('click', function (e) {
-        clearActiveRecipe();
-        e.target.classList.add('preview__link--active');
-      });
+  setActiveRecipe(callback) {
+    window.addEventListener('hashchange', function () {
+      callback();
     });
   },
 };
+
 searchResults.setMarkupCallback(data => {
   const { recipes } = data;
   if (!recipes.length) return;
+  const currentId = window.location.hash.slice(1);
   const markup = recipes.map(recipe => {
     const { id, title, publisher, image_url } = recipe;
     return `
         <li class="preview">
-            <a id="preview-link-${id}" class="preview__link" href="#${id}">
+            <a id="preview-link-${id}" class="preview__link${
+      currentId === id ? ' preview__link--active' : ''
+    }" href="#${id}">
             <figure class="preview__fig">
                 <img src="${image_url}" alt="${title}" />
             </figure>

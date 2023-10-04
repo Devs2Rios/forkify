@@ -6,9 +6,11 @@ import {
 } from './model';
 import { recipeDetail, searchResults, pagination } from './view';
 
+/* 
 if (module.hot) {
   module.hot.accept();
 }
+*/
 
 const controlRecipe = async () => {
   const { hash } = window.location,
@@ -39,6 +41,10 @@ const controlSearchRecipes = async query => {
   }
 };
 
+const controlRecipeClick = id => {
+  searchResults.render(getSearchRecipesPage(state.page));
+};
+
 const controlPagination = goToPage => {
   searchResults.render(getSearchRecipesPage(goToPage));
   state.page = goToPage;
@@ -54,7 +60,7 @@ const init = () => {
   );
   // Publisher-subscriber pattern implemented
   searchResults.actionHandlers.getQuery(controlSearchRecipes);
-  searchResults.actionHandlers.setActiveRecipe();
+  searchResults.actionHandlers.setActiveRecipe(controlRecipeClick);
   pagination.actionHandlers.handlePagination(controlPagination);
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
 };
