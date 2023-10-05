@@ -43,7 +43,7 @@ const controlSearchRecipes = async query => {
 };
 
 const controlRecipeClick = id => {
-  searchResults.render(getSearchRecipesPage(state.page));
+  searchResults.update(getSearchRecipesPage(state.page));
 };
 
 const controlPagination = goToPage => {
@@ -57,7 +57,7 @@ const controlPagination = goToPage => {
 
 const controlServings = servings => {
   updateServings(servings);
-  recipeDetail.render(state.recipe);
+  recipeDetail.update(state.recipe);
 };
 
 const init = () => {

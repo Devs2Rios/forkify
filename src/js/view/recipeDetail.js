@@ -10,7 +10,7 @@ recipeDetail.actionHandlers = {
       const btn = e.target.closest('.btn--update-servings');
       if (!btn) return;
       const { servings } = btn.dataset;
-      callback(+servings);
+      if (servings > 0) callback(+servings);
     });
   },
 };
@@ -48,17 +48,13 @@ recipeDetail.setMarkupCallback(recipe => {
         <span class="recipe__info-text">servings</span>
 
         <div class="recipe__info-buttons">
-        ${
-          servings > 1
-            ? `<button data-servings="${
-                servings - 1
-              }" class="btn--tiny btn--update-servings">
+          <button data-servings="${
+            servings - 1
+          }" class="btn--tiny btn--update-servings">
             <svg>
               <use href="${icons}#icon-minus-circle"></use>
             </svg>
-          </button>`
-            : ''
-        }
+          </button>
           <button data-servings="${
             servings + 1
           }" class="btn--tiny btn--update-servings">
