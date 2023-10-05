@@ -68,7 +68,7 @@ const init = () => {
   searchResults.actionHandlers.getQuery(controlSearchRecipes);
   searchResults.actionHandlers.setActiveRecipe(controlRecipeClick);
   pagination.actionHandlers.handlePagination(controlPagination);
-  recipeDetail.actionHandlers.servingClick(controlServings);
+  recipeDetail.actionHandlers.handleServings(controlServings);
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
 };
 

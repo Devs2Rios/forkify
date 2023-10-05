@@ -5,13 +5,12 @@ import { recipeContainer } from './domElements';
 export const recipeDetail = new View();
 recipeDetail.setParentElement(recipeContainer);
 recipeDetail.actionHandlers = {
-  servingClick(callback) {
+  handleServings(callback) {
     recipeContainer.addEventListener('click', e => {
-      const btn = e.target.closest('.btn--increase-servings');
-      if (btn) {
-        const servings = +btn.dataset.servings;
-        callback(servings);
-      }
+      const btn = e.target.closest('.btn--update-servings');
+      if (!btn) return;
+      const { servings } = btn.dataset;
+      callback(+servings);
     });
   },
 };
@@ -53,7 +52,7 @@ recipeDetail.setMarkupCallback(recipe => {
           servings > 1
             ? `<button data-servings="${
                 servings - 1
-              }" class="btn--tiny btn--increase-servings">
+              }" class="btn--tiny btn--update-servings">
             <svg>
               <use href="${icons}#icon-minus-circle"></use>
             </svg>
@@ -62,7 +61,7 @@ recipeDetail.setMarkupCallback(recipe => {
         }
           <button data-servings="${
             servings + 1
-          }" class="btn--tiny btn--increase-servings">
+          }" class="btn--tiny btn--update-servings">
             <svg>
               <use href="${icons}#icon-plus-circle"></use>
             </svg>
