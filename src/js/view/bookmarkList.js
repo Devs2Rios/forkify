@@ -1,5 +1,6 @@
 import { View } from '../model';
 import { bookmarkContainer } from './domElements';
+import { icons } from '../utils';
 
 export const bookmarkList = new View();
 bookmarkList.setParentElement(bookmarkContainer);
@@ -12,19 +13,27 @@ bookmarkList.setMarkupCallback(
                 ? bookmarks
                     .map(recipe => {
                       const { id, title, publisher, image_url } = recipe;
-                      console.log(recipe);
                       return `
-                          <li class="bookmarks__item">
-                              <a href="#${id}" class="bookmarks__link">
-                                  <figure class="bookmarks__fig">
-                                      <img src="${image_url}" alt="${title}">
-                                  </figure>
-                                  <div class="bookmarks__data">
-                                      <h4 class="bookmarks__name">${title}</h4>
-                                      <p class="bookmarks__author">${publisher}</p>
-                                  </div>
-                              </a>
-                          </li>
+                            <li class="preview">
+                            <a class="preview__link ${
+                              id === window.location.hash.slice(1)
+                                ? 'preview__link--active'
+                                : ''
+                            }" href="#${id}">
+                                <figure class="preview__fig">
+                                <img src="${image_url}" alt="${title}" />
+                                </figure>
+                                <div class="preview__data">
+                                    <h4 class="preview__title">${title}</h4>
+                                    <p class="preview__publisher">${publisher}</p>
+                                    <div class="preview__user-generated hidden">
+                                        <svg>
+                                        <use href="${icons}#icon-user"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                            </li>
                           `;
                     })
                     .join('\n')
