@@ -3,7 +3,10 @@ import { getRecipe, searchRecipes } from '../utils/services/recipes';
 
 export const loadRecipe = async id => {
   const recipe = await getRecipe(id);
-  state.recipe = recipe;
+  state.recipe = {
+    ...recipe,
+    bookmarked: state.bookmarks.some(bookmark => bookmark.id === id),
+  };
 };
 
 export const loadSearchRecipes = async query => {

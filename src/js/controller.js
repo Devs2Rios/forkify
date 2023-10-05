@@ -4,8 +4,10 @@ import {
   loadSearchRecipes,
   getSearchRecipesPage,
   updateServings,
+  addBookmark,
+  deleteBookmark,
 } from './model';
-import { recipeDetail, searchResults, pagination } from './view';
+import { recipeDetail, searchResults, pagination, bookmarkList } from './view';
 
 /* 
 if (module.hot) {
@@ -60,15 +62,24 @@ const controlServings = servings => {
   recipeDetail.update(state.recipe);
 };
 
+const controlBookmark = () => {
+  if (!state.recipe.bookmarked) addBookmark(state.recipe);
+  else deleteBookmark(state.recipe.id);
+  recipeDetail.update(state.recipe);
+  bookmarkList.render(state.bookmarks);
+};
+
 const init = () => {
   recipeDetail.renderMessage(
     'Start by searching for a recipe or an ingredient. Have fun!'
   );
+  bookmarkList.render(state.bookmarks);
   // Publisher-subscriber pattern implemented
   searchResults.actionHandlers.getQuery(controlSearchRecipes);
   searchResults.actionHandlers.setActiveRecipe(controlRecipeClick);
   pagination.actionHandlers.handlePagination(controlPagination);
   recipeDetail.actionHandlers.handleServings(controlServings);
+  recipeDetail.actionHandlers.handleBookmark(controlBookmark);
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
 };
 
