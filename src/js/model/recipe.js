@@ -20,3 +20,12 @@ export const getSearchRecipesPage = (page = state.page) => {
   const [start, end] = [(page - 1) * rpp, page * rpp];
   return { page, recipes: state.recipes.slice(start, end) };
 };
+
+export const updateServings = (servings = state.recipe.servings) => {
+  const ingredients = state.recipe.ingredients.map(ingredient => {
+    const unit = ingredient.quantity / state.recipe.servings;
+    const quantity = unit * servings;
+    return { ...ingredient, quantity };
+  });
+  state.recipe = { ...state.recipe, servings, ingredients };
+};

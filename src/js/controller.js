@@ -3,6 +3,7 @@ import {
   loadRecipe,
   loadSearchRecipes,
   getSearchRecipesPage,
+  updateServings,
 } from './model';
 import { recipeDetail, searchResults, pagination } from './view';
 
@@ -54,6 +55,11 @@ const controlPagination = goToPage => {
   });
 };
 
+const controlServings = servings => {
+  updateServings(servings);
+  recipeDetail.render(state.recipe);
+};
+
 const init = () => {
   recipeDetail.renderMessage(
     'Start by searching for a recipe or an ingredient. Have fun!'
@@ -62,6 +68,7 @@ const init = () => {
   searchResults.actionHandlers.getQuery(controlSearchRecipes);
   searchResults.actionHandlers.setActiveRecipe(controlRecipeClick);
   pagination.actionHandlers.handlePagination(controlPagination);
+  recipeDetail.actionHandlers.servingClick(controlServings);
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
 };
 
