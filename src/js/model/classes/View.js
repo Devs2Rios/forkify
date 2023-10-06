@@ -8,7 +8,7 @@ export class View {
 
   render(data) {
     this.#data = data;
-    this.#clear();
+    this.clear();
     const markup = this.#generateMarkup();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
@@ -59,7 +59,7 @@ export class View {
         </svg>
       </div>
     `;
-    this.#clear();
+    this.clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
@@ -76,15 +76,15 @@ export class View {
         <p>${message}</p>
       </div>
     `;
-    this.#clear();
+    this.clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  clear() {
+    this.#parentElement.innerHTML = '';
   }
 
   #generateMarkup() {
     return this.#markupCallback(this.#data);
-  }
-
-  #clear() {
-    this.#parentElement.innerHTML = '';
   }
 }

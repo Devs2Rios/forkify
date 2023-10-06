@@ -8,7 +8,13 @@ import {
   addBookmark,
   deleteBookmark,
 } from './model';
-import { recipeDetail, searchResults, pagination, bookmarkList } from './view';
+import {
+  recipeDetail,
+  searchResults,
+  pagination,
+  bookmarkList,
+  addRecipeForm,
+} from './view';
 
 /* 
 if (module.hot) {
@@ -83,18 +89,26 @@ const controlStoredBookmarks = () => {
   controlBookmark();
 };
 
+const controlUploadRecipe = newRecipe => {
+  console.log(newRecipe);
+};
+
 const init = () => {
   recipeDetail.renderMessage(
     'Start by searching for a recipe or an ingredient. Have fun!'
   );
+  addRecipeForm.render([]);
   // Publisher-subscriber pattern implemented
+  recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
+  bookmarkList.renderHandler(['hashchange', 'load'], controlStoredBookmarks);
   searchResults.actionHandlers.getQuery(controlSearchRecipes);
   searchResults.actionHandlers.setActiveRecipe(controlRecipeClick);
   pagination.actionHandlers.handlePagination(controlPagination);
   recipeDetail.actionHandlers.handleServings(controlServings);
   recipeDetail.actionHandlers.handleBookmark(controlAddRemoveBookmark);
-  recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
-  bookmarkList.renderHandler(['hashchange', 'load'], controlStoredBookmarks);
+  addRecipeForm.actionHandlers.openWindow();
+  addRecipeForm.actionHandlers.closeWindow();
+  addRecipeForm.actionHandlers.uploadContent(controlUploadRecipe);
 };
 
 init();
