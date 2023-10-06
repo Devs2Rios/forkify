@@ -26,6 +26,9 @@ addRecipeForm.actionHandlers = {
       })
     );
   },
+  forceClose() {
+    addRecipeEls.forEach(el => el.classList.add('hidden'));
+  },
   uploadContent(callback) {
     upload.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -39,23 +42,23 @@ addRecipeForm.setMarkupCallback(
     <div class="upload__column">
         <h3 class="upload__heading">Recipe data</h3>
         <label>Title</label>
-        <input value="TEST" required name="title" type="text" />
+        <input value="Mole Poblano" required name="title" type="text" />
         <label>URL</label>
-        <input value="TEST" required name="sourceUrl" type="text" />
+        <input value="https://laroussecocina.mx/receta/mole-poblano-2/" required name="sourceUrl" type="text" />
         <label>Image URL</label>
-        <input value="TEST" required name="image" type="text" />
+        <input value="https://laroussecocina.mx/wp-content/uploads/2017/12/mole-poblano-001-larousse-cocina_0-e1671586546996.jpg.webp" required name="image" type="text" />
         <label>Publisher</label>
-        <input value="TEST" required name="publisher" type="text" />
+        <input value="Larousse Cocina" required name="publisher" type="text" />
         <label>Prep time</label>
-        <input value="23" required name="cookingTime" type="number" />
+        <input value="50" required name="cookingTime" type="number" />
         <label>Servings</label>
-        <input value="23" required name="servings" type="number" />
+        <input value="24" required name="servings" type="number" />
     </div>
     <div class="upload__column">
         <h3 class="upload__heading">Ingredients</h3>
         <label>Ingredient 1</label>
         <input
-            value="0.5,kg,Rice"
+            value="0.5,kg,mole"
             type="text"
             required
             name="ingredient-1"
@@ -63,14 +66,14 @@ addRecipeForm.setMarkupCallback(
         />
         <label>Ingredient 2</label>
         <input
-            value="1,,Avocado"
+            value="24,pieces,chicken"
             type="text"
             name="ingredient-2"
             placeholder="Format: 'Quantity,Unit,Description'"
         />
         <label>Ingredient 3</label>
         <input
-            value=",,salt"
+            value="0.5,kg,tortillas"
             type="text"
             name="ingredient-3"
             placeholder="Format: 'Quantity,Unit,Description'"

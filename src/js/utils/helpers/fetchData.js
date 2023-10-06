@@ -8,9 +8,12 @@ const timeout = function (s) {
   });
 };
 
-export const fetchData = async (url, errorMessage) => {
+export const fetchData = async (url, options = {}, errorMessage = null) => {
   try {
-    const res = await Promise.race([fetch(url), timeout(timeoutSeconds)]);
+    const res = await Promise.race([
+      fetch(url, options),
+      timeout(timeoutSeconds),
+    ]);
     const data = await res.json();
     if (!res.ok)
       throw new Error(errorMessage || `${data.message} ${res.status}`);

@@ -3,11 +3,14 @@ import {
   loadRecipe,
   loadSearchRecipes,
   getSearchRecipesPage,
+  uploadRecipe,
   updateServings,
   loadBookmarks,
   addBookmark,
   deleteBookmark,
+  RecipeRequest,
 } from './model';
+import { modalCloseTime } from './utils';
 import {
   recipeDetail,
   searchResults,
@@ -89,8 +92,17 @@ const controlStoredBookmarks = () => {
   controlBookmark();
 };
 
-const controlUploadRecipe = newRecipe => {
-  console.log(newRecipe);
+const controlUploadRecipe = async newRecipe => {
+  try {
+    addRecipeForm.loadSpinner();
+    const req = new RecipeRequest(newRecipe);
+    await uploadRecipe(req);
+    addRecipeForm.renderMessage('Recipe uploaded successfully!');
+    recipeDetail.render(state.recipe);
+    setTimeout(addRecipeForm.actionHandlers.forceClose, modalCloseTime);
+  } catch (err) {
+    addRecipeForm.renderMessage(err.message, true);
+  }
 };
 
 const init = () => {

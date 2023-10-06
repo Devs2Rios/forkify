@@ -1,1 +1,2 @@
-export * from './View.js';
+export * from './View';
+export * from './Recipe';

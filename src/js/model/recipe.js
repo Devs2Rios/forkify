@@ -1,5 +1,11 @@
 import { state } from './state';
-import { getRecipe, searchRecipes } from '../utils/services/recipes';
+import { Recipe } from './classes';
+import { addBookmark } from './bookmark';
+import {
+  getRecipe,
+  searchRecipes,
+  postRecipe,
+} from '../utils/services/recipes';
 
 export const loadRecipe = async id => {
   const recipe = await getRecipe(id);
@@ -31,4 +37,12 @@ export const updateServings = (servings = state.recipe.servings) => {
     return { ...ingredient, quantity };
   });
   state.recipe = { ...state.recipe, servings, ingredients };
+};
+
+export const uploadRecipe = async newRecipe => {
+  const data = await postRecipe(newRecipe);
+  const recipe = new Recipe();
+  recipe.fill(data);
+  state.recipe = recipe;
+  addBookmark(state.recipe);
 };
