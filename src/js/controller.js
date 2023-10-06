@@ -98,6 +98,8 @@ const controlUploadRecipe = async newRecipe => {
     const req = new RecipeRequest(newRecipe);
     await uploadRecipe(req);
     addRecipeForm.renderMessage('Recipe uploaded successfully!');
+    bookmarkList.render(state.bookmarks);
+    window.history.pushState(null, '', `#${state.recipe.id}`);
     recipeDetail.render(state.recipe);
     setTimeout(addRecipeForm.actionHandlers.forceClose, modalCloseTime);
   } catch (err) {

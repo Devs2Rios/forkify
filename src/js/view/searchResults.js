@@ -24,7 +24,7 @@ searchResults.setMarkupCallback(data => {
   if (!recipes.length) return;
   const currentId = window.location.hash.slice(1);
   const markup = recipes.map(recipe => {
-    const { id, title, publisher, image_url } = recipe;
+    const { id, key, title, publisher, image_url } = recipe;
     return `
         <li class="preview">
             <a id="preview-link-${id}" class="preview__link${
@@ -36,7 +36,7 @@ searchResults.setMarkupCallback(data => {
             <div class="preview__data">
                 <h4 class="preview__title">${title}</h4>
                 <p class="preview__publisher">${publisher}</p>
-                <div class="preview__user-generated">
+                <div class="preview__user-generated${key ? '' : ' hidden'}">
                     <svg>
                         <use href="${icons}#icon-user"></use>
                     </svg>

@@ -3,7 +3,7 @@ import { fetchData } from '../helpers';
 
 export const getRecipe = async id => {
   const res = await fetchData(
-    `${endpoints.recipes}/${id}`,
+    `${endpoints.recipes}/${id}?key=${apiKey}`,
     {},
     'Recipe not found'
   );
@@ -12,7 +12,7 @@ export const getRecipe = async id => {
 
 export const searchRecipes = async keyword => {
   const res = await fetchData(
-    `${endpoints.recipes}?search=${keyword}`,
+    `${endpoints.recipes}?search=${keyword}&key=${apiKey}`,
     {},
     'Recipes not found'
   );

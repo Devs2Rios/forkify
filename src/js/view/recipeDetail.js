@@ -23,6 +23,7 @@ recipeDetail.actionHandlers = {
 };
 recipeDetail.setMarkupCallback(recipe => {
   const {
+    key,
     title,
     servings,
     cooking_time,
@@ -73,7 +74,7 @@ recipeDetail.setMarkupCallback(recipe => {
         </div>
       </div>
 
-      <div class="recipe__user-generated">
+      <div class="recipe__user-generated${key ? '' : ' hidden'}">
         <svg>
           <use href="${icons}#icon-user"></use>
         </svg>
