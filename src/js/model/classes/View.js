@@ -7,7 +7,6 @@ export class View {
   actionHandlers = {};
 
   render(data) {
-    if (!data || (Array.isArray(data) && data.length === 0)) return;
     this.#data = data;
     this.#clear();
     const markup = this.#generateMarkup();

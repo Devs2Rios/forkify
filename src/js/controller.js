@@ -4,6 +4,7 @@ import {
   loadSearchRecipes,
   getSearchRecipesPage,
   updateServings,
+  loadBookmarks,
   addBookmark,
   deleteBookmark,
 } from './model';
@@ -63,24 +64,37 @@ const controlServings = servings => {
 };
 
 const controlBookmark = () => {
+  if (!state.bookmarks?.length)
+    bookmarkList.renderMessage(
+      'No bookmarks yet. Find a nice recipe and bookmark it 😀'
+    );
+  else bookmarkList.render(state.bookmarks);
+};
+
+const controlAddRemoveBookmark = () => {
   if (!state.recipe.bookmarked) addBookmark(state.recipe);
   else deleteBookmark(state.recipe.id);
   recipeDetail.update(state.recipe);
-  bookmarkList.render(state.bookmarks);
+  controlBookmark();
+};
+
+const controlStoredBookmarks = () => {
+  loadBookmarks();
+  controlBookmark();
 };
 
 const init = () => {
   recipeDetail.renderMessage(
     'Start by searching for a recipe or an ingredient. Have fun!'
   );
-  bookmarkList.render(state.bookmarks);
   // Publisher-subscriber pattern implemented
   searchResults.actionHandlers.getQuery(controlSearchRecipes);
   searchResults.actionHandlers.setActiveRecipe(controlRecipeClick);
   pagination.actionHandlers.handlePagination(controlPagination);
   recipeDetail.actionHandlers.handleServings(controlServings);
-  recipeDetail.actionHandlers.handleBookmark(controlBookmark);
+  recipeDetail.actionHandlers.handleBookmark(controlAddRemoveBookmark);
   recipeDetail.renderHandler(['hashchange', 'load'], controlRecipe);
+  bookmarkList.renderHandler(['hashchange', 'load'], controlStoredBookmarks);
 };
 
 init();
